@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang='en' ng-app="myApp">
+<head>
+<title>Book Shopping Cart</title>
+<script src="../js/angular182.js"></script>
+<script src="hw3_part1Controller.js"></script>
+<link rel="stylesheet" href="../css/hw3.css">
+</head>
+<body ng-controller="CartControler" ng-init="updateTotal()">
+<table>
+<caption><b>My Books</b></caption>
+<thead>
+<tr>
+<th>Title</th>
+<th>Qty</th>
+<th>UnitPrice</th>
+<th>$UnitPrice</th>
+<th>Line Total</th>
+<th>Total {{ total | currency }}</th>
+</tr>
+</thead>
+<tbody >
+<!-- Loop through the books and create a row for each -->
+<tr ng-repeat="book in books">
+<td><input type="text" ng-model="book.title" /></td>
+<td><input type="number" ng-model="book.qty" ng-change="updateTotal()" min="1" /></td>
+<td><input type="number" ng-model="book.price" ng-change="updateTotal()" min="0.01" step="0.01" /></td>
+<td>{{ book.price | currency }}</td>
+<td>{{ book.qty * book.price | currency }}</td>
+<td><button ng-click="removeBook($index)">Remove</button></td>
+</tr>
+<th colspan="12">
+<div style="display: flex; justify-content: space-around; width: 100%;">
+<button ng-click="addBook()">New</button>
+<button ng-click="undo()">Undo</button>
+<button ng-click="redo()">Redo</button>
+<button ng-click="saveBooks()">Save</button>
+</div>
+</th>
+</tbody>
+</table>
+</body>
+</html>
